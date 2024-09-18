@@ -12,10 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          path: "REPO"
 
-      - name: Copy script files around to stop .github from being added to the package then build the package
+      - name: Build the package
         run: |
           sudo rpmbuild  --define "_topdir $(pwd)" --define "_version ${{ github.event.release.tag_name }}" -bb "red hat/tsn-testbench.spec"
 
