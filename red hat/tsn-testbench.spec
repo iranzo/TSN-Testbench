@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 Name: TSN-Testbench
+Version: %Version
 Release: 1%{?dist}
 Summary: Time-Sensitive Networks Testbench is a set of tools for validating the networks with different protocols
 License: BSD-2
