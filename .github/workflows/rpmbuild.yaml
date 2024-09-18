@@ -15,7 +15,7 @@ jobs:
 
       - name: Build the package
         run: |
-          sudo rpmbuild  --define "_topdir $(pwd)" --define "_version ${{ github.event.release.tag_name }}" -bb "red hat/tsn-testbench.spec"
+          sudo rpmbuild  --define "_topdir $(pwd)" --define "version ${{ github.event.release.tag_name }}" -bb "red hat/tsn-testbench.spec"
 
       - name: Release the Package
         uses: softprops/action-gh-release@v1
