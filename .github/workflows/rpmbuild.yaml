@@ -15,6 +15,7 @@ jobs:
 
       - name: Build the package
         run: |
+          mkdir -p {BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
           sudo rpmbuild  --define "_topdir $(pwd)" --define "version ${{ github.event.release.tag_name }}" --define "myrepo ${{ github.repository_owner }}/${{ github.event.repository.name }}" -bb "red hat/tsn-testbench.spec"
 
       - name: Release the Package
