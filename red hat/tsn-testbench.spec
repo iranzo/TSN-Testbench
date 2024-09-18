@@ -7,7 +7,7 @@ Summary: Time-Sensitive Networks Testbench is a set of tools for validating the 
 License: BSD-2
 %undefine _disable_source_fetch
 URL: https://github.com/Linutronix/TSN-Testbench
-Source0: https://github.com/Linutronix/TSN-Testbench/archive/refs/tags/v%{version}.tar.gz
+Source0: https://github.com/Linutronix/TSN-Testbench/archive/refs/tags/%{version}.tar.gz
 
 BuildRequires: clang
 BuildRequires: cmake
