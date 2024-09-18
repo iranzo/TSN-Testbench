@@ -1,0 +1,25 @@
+---
+name: RPM Build
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  Create_Packages:
+    name: Create Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          path: "REPO"
+
+      - name: Copy script files around to stop .github from being added to the package then build the package
+        run: |
+          sudo rpmbuild  --define "_topdir $(pwd)" --define "_version ${{ github.event.release.tag_name }}" -bb "red hat/tsn-testbench.spec"
+
+      - name: Release the Package
+        uses: softprops/action-gh-release@v1
+        with:
+          files: RPMS/my-package-name_0.0.1-1.noarch.rpm
