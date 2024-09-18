@@ -1,25 +1,25 @@
 ---
 name: RPM Build
 on:
-  push:
-    # # Sequence of patterns matched against refs/tags
-    # tags:
-    #   - "v*.*" # Push events to matching v*, i.e. v1.0, v20.15.10
+  release:
+    types: [published]
 
 jobs:
-  build:
+
+  Create_Packages:
+    name: Create Package
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: build RPM package
-        id: rpm
-        uses: naveenrajm7/rpmbuild@master
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
-          spec_file: "red hat/tsn-testbench.spec"
+          path: "REPO"
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Copy script files around to stop .github from being added to the package then build the package
+        run: |
+          sudo rpmbuild  --define "_topdir $(pwd)" --define "_version ${{ github.event.release.tag_name }}" -bb "red hat/tsn-testbench.spec"
+
+      - name: Release the Package
+        uses: softprops/action-gh-release@v1
         with:
-          name: Binary RPM
-          path: ${{ steps.rpm.outputs.rpm_dir_path }}
+          files: RPMS/my-package-name_0.0.1-1.noarch.rpm
